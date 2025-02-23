@@ -1,0 +1,64 @@
+-- Descargar Git y colocar en la consola:
+
+-- DIRECCIONARME EN MI RAIZ
+cd PORYECTO_RAIZ
+
+-- EJECUTAR ARCHIVO YML
+docker-compose up --build
+
+-- DEBO OBTENER EL NOMBRE O ID
+docker ps
+
+--abrir otra consola de git y ejecutar
+ 
+-- CONECTAR CON EL CONTENEDOR
+winpty docker exec -it CONTENEDOR mysql -u root -p (SIN -P LOS QUE NO TIENEN CONTRASEÑA, SINO PEDIRA QUE INGRESES LA CONTRASEÑA)
+winpty docker exec -it spring-boot-api-rest-db-1 mysql -u root
+
+-- VEREMOS LAS BASE DE DATOS CREADAS
+SHOW DATABASE
+
+-- CONECTAREMOS CON NUESTRA DB
+use appcibertec2024;
+
+-- CREAREMOS NUESTRAS TABLAS
+-- USUARIOS
+
+CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL,
+  `user` varchar(20) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `usuario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+INSERT INTO `usuario` (`id`, `user`, `email`, `password`) VALUES
+(1, 'javier', 'javier.galarza@gmail.com', '$2a$10$TXaQQpmfgl0RSeUlui1hsOQKhX8qSDBKVOz/R8TCG2ZmfDy18qSne');
+
+-- PRODUCTOS
+
+CREATE TABLE `productos` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(50) NOT NULL,
+  `precio` double(10,2) NOT NULL,
+  `cantidad` int(10) NOT NULL,
+  `enable` varchar(1) NOT NULL DEFAULT 'S'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `productos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+
+INSERT INTO `productos` (`id`, `descripcion`, `precio`, `cantidad`, `enable`) VALUES
+(1, 'Producto', 100.00, 9, 'N'),
+(2, 'Laptop Lenovo', 2000.00, 2, 'S'),
+(3, 'Monitor Teros 32 pulgadas', 450.00, 10, 'S'),
+(4, 'Monitor AOC 21 pulgadas', 280.00, 3, 'S');
+
